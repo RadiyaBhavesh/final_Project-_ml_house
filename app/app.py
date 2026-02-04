@@ -229,7 +229,7 @@ for city, info in AREA_MAP.items():
         icon=folium.Icon(color="blue", icon="home", prefix="fa")
     ).add_to(m)
 
-map_data = st_folium(m, height=350)
+map_data = st_folium(m, height=350,width=700)
 
 selected_city = list(AREA_MAP.keys())[0]
 
