@@ -214,18 +214,36 @@ st.markdown('<div class="header"><h1>🏠 House Price Prediction</h1></div>', un
 
 # ===================== MAP =====================
 st.markdown("### 🗺️ Select Location from Map")
-m = folium.Map(location=[22.5, 72.5], zoom_start=6)
+
+m = folium.Map(
+    location=[22.2587, 71.1924],
+    zoom_start=7,
+    tiles="OpenStreetMap"
+)
+
 for city, info in AREA_MAP.items():
-    folium.Marker([info["lat"], info["lon"]], popup=city, tooltip=city).add_to(m)
+    folium.Marker(
+        location=[info["lat"], info["lon"]],
+        popup=city,
+        tooltip=city,
+        icon=folium.Icon(color="blue", icon="home", prefix="fa")
+    ).add_to(m)
 
-map_data = st_folium(m, height=350, width=700)
+map_data = st_folium(m, height=350)
 
-selected_city = "Porbandar - Airport Area"
+selected_city = list(AREA_MAP.keys())[0]
+
 if map_data and map_data.get("last_object_clicked"):
     lat = map_data["last_object_clicked"]["lat"]
     lon = map_data["last_object_clicked"]["lng"]
-    selected_city = min(AREA_MAP.keys(), key=lambda c: abs(AREA_MAP[c]["lat"]-lat) + abs(AREA_MAP[c]["lon"]-lon))
+
+    selected_city = min(
+        AREA_MAP.keys(),
+        key=lambda c: abs(AREA_MAP[c]["lat"] - lat) + abs(AREA_MAP[c]["lon"] - lon)
+    )
+
     st.success(f"📍 Selected Area: {selected_city}")
+
 
 locations = list(AREA_MAP.keys())
 default_index = locations.index(selected_city) if selected_city in locations else 0
