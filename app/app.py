@@ -11,8 +11,7 @@ st.set_page_config("House Price Prediction", "🏠", layout="centered")
 
 # ===================== MODEL LOAD =====================
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = os.path.dirname(APP_DIR)
-MODEL_DIR = os.path.join(PROJECT_DIR, "Model")
+MODEL_DIR = os.path.join(APP_DIR, "Model")
 
 @st.cache_resource
 def load_models():
