@@ -5,6 +5,14 @@ import os
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
+import requests
+
+url = "https://drive.google.com/file/d/18VtrhZeHCYxN03v00pGpZI9D57EYFtPu/view?usp=drive_link"
+r = requests.get(url)
+
+with open("rf_model.pkl", "wb") as f:
+    f.write(r.content)
+
 
 # ===================== SETTINGS =====================
 st.set_page_config("House Price Prediction", "🏠", layout="centered")
