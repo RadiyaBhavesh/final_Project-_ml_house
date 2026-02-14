@@ -7,7 +7,7 @@ import folium
 from streamlit_folium import st_folium
 import requests
 
-url = "https://drive.google.com/file/d/18VtrhZeHCYxN03v00pGpZI9D57EYFtPu/view?usp=drive_link"
+url = "https://www.dropbox.com/scl/fi/b03mjwe5qb9eo1jsnlz8v/rf_model.pkl?rlkey=o7zpwgmw1921jua52vjykmzd7&st=ppv3tuyk&dl=0"
 r = requests.get(url)
 
 with open("rf_model.pkl", "wb") as f:
