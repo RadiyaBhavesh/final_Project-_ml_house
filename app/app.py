@@ -7,11 +7,19 @@ import folium
 from streamlit_folium import st_folium
 import requests
 
-url = "https://www.dropbox.com/scl/fi/b03mjwe5qb9eo1jsnlz8v/rf_model.pkl?rlkey=o7zpwgmw1921jua52vjykmzd7&st=ppv3tuyk&dl=0"
-r = requests.get(url)
 
-with open("rf_model.pkl", "wb") as f:
-    f.write(r.content)
+MODEL_DIR = "Model"
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+url = "https://www.dropbox.com/scl/fi/b03mjwe5qb9eo1jsnlz8v/rf_model.pkl?rlkey=o7zpwgmw1921jua52vjykmzd7&dl=1"
+
+model_path = os.path.join(MODEL_DIR, "rf_model.pkl")
+
+if not os.path.exists(model_path):
+    r = requests.get(url)
+    with open(model_path, "wb") as f:
+        f.write(r.content)
+
 
 
 # ===================== SETTINGS =====================
@@ -26,7 +34,7 @@ MODEL_DIR = os.path.join(PROJECT_DIR, "Model")
 def load_models():
     try:
         lr = pickle.load(open(os.path.join(MODEL_DIR, "linear_model.pkl"), "rb"))
-        rf = pickle.load(open(os.path.join(MODEL_DIR, "rf_model.pkl"), "rb"))
+       # rf = pickle.load(open(os.path.join(MODEL_DIR, "rf_model.pkl"), "rb"))
         encoder = pickle.load(open(os.path.join(MODEL_DIR, "location_encoder.pkl"), "rb"))
         if encoder is None:
             raise ValueError("Encoder is None! Check location_encoder.pkl")
